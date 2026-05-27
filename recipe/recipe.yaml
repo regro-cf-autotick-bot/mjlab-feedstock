@@ -12,6 +12,9 @@ package:
 source:
   url: https://github.com/mujocolab/mjlab/archive/refs/tags/v${{ version }}.zip
   sha256: dcbc8ff6a575b6bdf66ccf1272ec7cbebcf447f9da66316de1f01a06e815b68b
+  patches:
+    - fix-segmentation-vec2i.patch
+    - fix-multiccd-enable-flag.patch
 
 build:
   number: ${{ build_number }}
@@ -68,6 +71,8 @@ tests:
       source:
         - pyproject.toml
         - src/mjlab/asset_zoo
+        - src/mjlab/scripts
+        - scripts/
         - tests/
     requirements:
       run:

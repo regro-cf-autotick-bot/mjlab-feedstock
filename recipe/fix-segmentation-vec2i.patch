@@ -1,0 +1,15 @@
+--- a/src/mjlab/sensor/sensor_context.py
++++ b/src/mjlab/sensor/sensor_context.py
+@@ -220,8 +220,10 @@ class SensorContext:
+     sensor = self.camera_sensors[list_idx]
+     w, h = sensor.cfg.width, sensor.cfg.height
+     num_pixels = w * h
+     nworld = self._data.nworld
+ 
+-    cam_data = self._seg_torch[:, seg_adr : seg_adr + num_pixels]
+-    return cam_data.view(nworld, h, w, 1)
++    # seg_data is vec2i (geom_id, type) per pixel; extract geom_id only.
++    cam_data = self._seg_torch[:, seg_adr : seg_adr + num_pixels, 0]
++    return cam_data.reshape(nworld, h, w, 1)
+ 
+   # Private methods.
